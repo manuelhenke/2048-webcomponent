@@ -115,7 +115,7 @@
     "@web/dev-server": "^0.4.1",
     "@web/dev-server-import-maps": "^0.1.1",
     "@web/test-runner": "^0.15.0",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.17",
     "concurrently": "^8.2.0",
     "css-loader": "^6.5.1",
     "eslint": "^8.9.0",
