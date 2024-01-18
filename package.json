@@ -1,20 +1,20 @@
 {
-  "name": "minesweeper-for-web",
-  "version": "3.0.4",
-  "description": "Minesweeper as a WebComponent.",
+  "name": "2048-webcomponent",
+  "version": "0.0.1",
+  "description": "2048 as a WebComponent.",
   "keywords": [
-    "minesweeper",
+    "2048",
     "javascript",
     "webcomponent",
     "custom-element"
   ],
-  "homepage": "https://henkebyte.com/minesweeper",
+  "homepage": "https://henkebyte.com/2048",
   "bugs": {
-    "url": "https://github.com/manuelhenke/minesweeper-for-web/issues"
+    "url": "https://github.com/manuelhenke/2048-webcomponent/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manuelhenke/minesweeper-for-web.git"
+    "url": "git+https://github.com/manuelhenke/2048-webcomponent.git"
   },
   "license": "MIT",
   "author": {
@@ -26,27 +26,27 @@
   "browser": "dist/custom-element.js",
   "main": "dist/custom-element.js",
   "module": "dist/custom-element.js",
-  "types": "lib-esm/src/minesweeper-game.d.ts",
+  "types": "lib-esm/src/game-2048.d.ts",
   "exports": {
     ".": {
-      "types": "./lib-esm/src/minesweeper-game.d.ts",
+      "types": "./lib-esm/src/game-2048.d.ts",
       "default": "./dist/custom-element.js"
     },
     "./custom-element": {
-      "types": "./lib-esm/src/minesweeper-game.d.ts",
+      "types": "./lib-esm/src/game-2048.d.ts",
       "default": "./dist/custom-element.js"
     },
     "./custom-element.min": {
-      "types": "./lib-esm/src/minesweeper-game.d.ts",
+      "types": "./lib-esm/src/game-2048.d.ts",
       "default": "./dist/custom-element.min.js"
     },
-    "./minesweeper-game": {
-      "types": "./lib-esm/src/MinesweeperGame.d.ts",
-      "default": "./dist/minesweeper-game.js"
+    "./game-2048": {
+      "types": "./lib-esm/src/Game.d.ts",
+      "default": "./dist/game-2048.js"
     },
-    "./minesweeper-game.min": {
-      "types": "./lib-esm/src/MinesweeperGame.d.ts",
-      "default": "./dist/minesweeper-game.min.js"
+    "./game-2048.min": {
+      "types": "./lib-esm/src/Game.d.ts",
+      "default": "./dist/game-2048.min.js"
     },
     "./core": {
       "types": "./lib-esm/src/index.d.ts",
@@ -73,8 +73,8 @@
     "index.js",
     "custom-element.js",
     "custom-element.min.js",
-    "minesweeper-game.js",
-    "minesweeper-game.min.js",
+    "game-2048.js",
+    "game-2048.min.js",
     "core.js",
     "engine.js",
     "lib-esm/src/",
@@ -82,17 +82,17 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement",
-    "build": "yarn build:dist && yarn build:lib && ./fixup.sh && yarn analyze --exclude dist",
+    "build": "npm run build:dist && npm run build:lib && ./fixup.sh && npm run analyze -- --exclude dist",
     "build:dist": "webpack",
-    "build:lib": "yarn build:lib-esm && yarn build:lib-cjs",
+    "build:lib": "npm run build:lib-esm && npm run build:lib-cjs",
     "build:lib-esm": "rm -fr lib-esm/* && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "build:lib-cjs": "rm -fr lib-cjs/* && tsc -p tsconfig-cjs.json && tsc-alias -p tsconfig-cjs.json",
-    "dev": "yarn build && concurrently -k -r \"yarn build:dist --watch\" \"wds\"",
-    "lint": "yarn lint:ts && yarn lint:style && yarn lint:prettier",
+    "dev": "npm run build && concurrently -r -k \"wds\" \"npm run build:dist -- --watch\"",
+    "lint": "npm run lint:ts && npm run lint:style && npm run lint:prettier",
     "lint:ts": "eslint --ext \".ts\" .",
     "lint:prettier": "prettier --check .",
     "lint:style": "stylelint \"**/*.{css,scss,sass,html}\" --ignore-path .gitignore",
-    "lintfix": "prettier --write --list-different . && yarn lint:ts --fix && yarn lint:style --fix",
+    "lintfix": "prettier --write --list-different . && npm run lint:ts --fix && npm run lint:style --fix",
     "prepare": "husky install",
     "test": "tsc && tsc-alias && wtr --coverage --debug",
     "test:watch": "tsc && tsc-alias && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"tsc-alias --watch\" \"wtr --watch\""

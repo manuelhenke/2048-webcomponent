@@ -1,2 +1,2 @@
-export * from './MinesweeperBoard';
-export * from './MinesweeperEngine';
+export * from './Board';
+export * from './Engine';

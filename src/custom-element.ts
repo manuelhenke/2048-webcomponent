@@ -1,9 +1,9 @@
-import { MinesweeperGame } from './MinesweeperGame';
+import { Game } from './Game';
 
-window.customElements.define('minesweeper-game', MinesweeperGame);
+window.customElements.define('game-2048', Game);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'minesweeper-game': MinesweeperGame;
+    'game-2048': Game;
   }
 }

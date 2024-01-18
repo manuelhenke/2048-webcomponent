@@ -14,14 +14,14 @@ module.exports = {
   entry: {
     'custom-element': './src/custom-element.ts',
     'custom-element.min': './src/custom-element.ts',
-    'minesweeper-game': {
-      import: './src/MinesweeperGame.ts',
+    'game-2048': {
+      import: './src/Game.ts',
       library: {
         type: 'module',
       },
     },
-    'minesweeper-game.min': {
-      import: './src/MinesweeperGame.ts',
+    'game-2048.min': {
+      import: './src/Game.ts',
       library: {
         type: 'module',
       },

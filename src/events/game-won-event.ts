@@ -1,8 +1,8 @@
-import { MinesweeperBoard } from '@/engine';
-import { MinesweeperEvent } from './minesweeper-event';
+import { Board } from '@/engine';
+import { Event } from './event';
 
-export class GameWonEvent extends MinesweeperEvent {
-  constructor(board: MinesweeperBoard) {
+export class GameWonEvent extends Event {
+  constructor(board: Board) {
     super('game-won', board);
   }
 }

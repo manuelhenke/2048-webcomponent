@@ -20,7 +20,7 @@ jobs:
         id: release
         with:
           release-type: node
-          package-name: minesweeper-for-web
+          package-name: 2048-webcomponent
 
   publish:
     if: ${{ needs.create-release.outputs.release_created }}
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: npm
-      url: https://www.npmjs.com/package/minesweeper-for-web
+      url: https://www.npmjs.com/package/2048-webcomponent
 
     steps:
       - name: Checkout 🛎

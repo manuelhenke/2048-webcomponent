@@ -1,18 +1,4 @@
-export {
-  FieldClickEvent,
-  FieldInteractionEvent,
-  FieldLongPressEvent,
-  GameLostEvent,
-  GameWonEvent,
-  MinesweeperEvent,
-} from './events';
-export {
-  ActionType,
-  FieldInteractionType,
-  FieldKey,
-  FieldTarget,
-  GameModeConfiguration,
-  Interaction,
-} from './types';
-export { MinesweeperBoard, MinesweeperEngine } from './engine';
-export type { MinesweeperGame } from './MinesweeperGame';
+export type { Game } from './Game';
+export { Board, Engine, FieldValue } from './engine';
+export { Event, MoveEvent, GameLostEvent, GameWonEvent } from './events';
+export { Direction, GameModeConfiguration } from './types';
