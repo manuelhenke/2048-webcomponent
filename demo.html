@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        max-width: 100vw;
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #fbf8ef;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>2048</h1>
+    <select name="select-game-mode" id="select-game-mode">
+      <option value="easy">Easy - 5x5</option>
+      <option value="normal" selected>Normal - 4x4</option>
+      <option value="hard">Hard - 3x3</option>
+    </select>
+    <game-2048 id="game-2048" restart-selector="#restart-game-button"></game-2048>
+    <div>
+      <button id="restart-game-button">Restart!</button>
+      <button id="restart-game-button-confirm">Restart with Confirm!</button>
+    </div>
+    <!-- <h2>Custom tag name</h2>
+    <custom-game-2048></custom-game-2048> -->
+
+    <script type="module">
+      import './dist/custom-element.js';
+      // Replace with: import '2048-webcomponent';
+      // Alternative:
+      // import '2048-webcomponent/custom-element';
+      // import '2048-webcomponent/custom-element.min';
+
+      import { Game } from './dist/game-2048.js';
+      // Replace with: import { Game } from '2048-webcomponent/game-2048';
+      // Alternative:
+      // import '2048-webcomponent/game-2048.min';
+
+      window.customElements.define('custom-game-2048', Game);
+
+      function getGameModeConfiguration(currentGameMode) {
+        switch (currentGameMode) {
+          case 'hard':
+            return {
+              columns: 3,
+              rows: 3,
+            };
+          case 'normal':
+            return {
+              columns: 4,
+              rows: 4,
+            };
+          default: // 'easy'
+            return {
+              columns: 5,
+              rows: 5,
+            };
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        /** @type {Game} **/
+        const game = document.querySelector('#game-2048');
+
+        game.addEventListener('2048:game-won', (event) => {
+          console.log('game-won', event);
+          // eslint-disable-next-line no-alert
+          window.alert('You won!');
+        });
+
+        game.addEventListener('2048:game-lost', (event) => {
+          console.log('game-lost', event);
+          // eslint-disable-next-line no-alert
+          window.alert('You lost!');
+        });
+
+        game.addEventListener('2048:move', (event) => {
+          console.log('move', event);
+        });
+
+        document
+          .querySelector('#restart-game-button-confirm')
+          .addEventListener('click', (event) => {
+            event.preventDefault();
+            if (
+              // eslint-disable-next-line no-alert
+              window.confirm('Are you sure, that you want to restart the game?')
+            ) {
+              game.restartGame();
+            }
+          });
+
+        document.querySelector('#select-game-mode').addEventListener('change', (event) => {
+          event.preventDefault();
+
+          const gameModeConfiguration = getGameModeConfiguration(event.target.value);
+          game.setGameModeConfiguration(gameModeConfiguration);
+        });
+      });
+    </script>
+  </body>
+</html>

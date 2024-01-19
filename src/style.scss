@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+:host {
+  display: inline-block;
+  max-width: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.container {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  display: flex;
+  background-color: #bbada0;
+  border-radius: 4px;
+  overflow-x: auto;
+  --spacing: 6px;
+  padding: var(--spacing);
+
+  &:not(.show-hover-elements) .field,
+  &.show-hover-elements .field:not(:hover) {
+    > *:nth-child(2) {
+      display: none;
+    }
+  }
+}
+
+.box {
+  display: inline-flex;
+  flex-direction: column;
+  place-items: center;
+  place-content: center;
+  gap: var(--spacing);
+}
+
+.row {
+  display: inline-flex;
+  flex-direction: row;
+  place-items: center;
+  place-content: center;
+  gap: var(--spacing);
+}
+
+.field {
+  background-color: #cdc1b5;
+  display: inline-block;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent; /* for removing the highlight */
+  -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+  -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+  height: 50px;
+  width: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  place-items: center;
+  place-content: center;
+
+  --light-text-color: #fdf2e7;
+  --dark-text-color: #756f68;
+
+  color: var(--light-text-color);
+  &-2 {
+    background-color: #eee4da;
+    color: var(--dark-text-color);
+  }
+
+  &-4 {
+    background-color: #ece0c8;
+    color: var(--dark-text-color);
+  }
+
+  &-8 {
+    background-color: #f2b179;
+  }
+
+  &-16 {
+    background-color: #f59563;
+  }
+
+  &-32 {
+    background-color: #f57c5f;
+  }
+
+  &-64 {
+    background-color: #f65f3c;
+  }
+
+  &-128 {
+    background-color: #ecce70;
+  }
+
+  &-256 {
+    background-color: #eccb61;
+  }
+
+  &-512 {
+    background-color: #ebc74f;
+  }
+
+  &-1024 {
+    background-color: #ecc441;
+  }
+
+  &-2048 {
+    background-color: #ecc12d;
+  }
+
+  &-4096 {
+    background-color: #ef666d;
+  }
+
+  &-8192 {
+    background-color: #ec4d58;
+  }
+
+  &-16384 {
+    background-color: #e24338;
+  }
+
+  &-32768 {
+    background-color: #72b4d7;
+  }
+
+  &-65536 {
+    background-color: #5ca0df;
+  }
+
+  &-131072 {
+    background-color: #007bbe;
+  }
+}
