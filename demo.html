@@ -22,6 +22,7 @@
   <body>
     <h1>2048</h1>
     <select name="select-game-mode" id="select-game-mode">
+      <option value="noob">Noob - 10x10</option>
       <option value="easy">Easy - 5x5</option>
       <option value="normal" selected>Normal - 4x4</option>
       <option value="hard">Hard - 3x3</option>
@@ -61,6 +62,11 @@
               columns: 4,
               rows: 4,
             };
+          case 'noob':
+            return {
+              columns: 10,
+              rows: 10,
+            };
           default: // 'easy'
             return {
               columns: 5,
@@ -73,6 +79,20 @@
         /** @type {Game} **/
         const game = document.querySelector('#game-2048');
         const scoreContainer = document.querySelector('#score');
+
+        game.setGameModeConfiguration({
+          columns: 4,
+          rows: 4,
+          state: {
+            positions: [
+              [131072, 65536, 32768, 16384],
+              [1024, 2048, 4096, 8192],
+              [512, 256, 128, 64],
+              [8, 8, 16, 32],
+            ],
+            score: 0,
+          },
+        });
 
         game.addEventListener('2048:game-won', (event) => {
           console.log('game-won', event);

@@ -16,9 +16,9 @@
   font-weight: 700;
   display: flex;
   background-color: #bbada0;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow-x: auto;
-  --spacing: 6px;
+  --spacing: 10px;
   padding: var(--spacing);
 
   &:not(.show-hover-elements) .field,
@@ -46,20 +46,27 @@
 }
 
 .field {
-  background-color: #cdc1b5;
+  background-color: #494949;
   display: inline-block;
   user-select: none;
   -webkit-tap-highlight-color: transparent; /* for removing the highlight */
   -webkit-user-select: none; /* disable selection/Copy of UIWebView */
   -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
-  height: 50px;
-  width: 50px;
-  border-radius: 4px;
+  --size: 3.625rem;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 3px;
   overflow: hidden;
   display: inline-flex;
   flex-direction: column;
   place-items: center;
   place-content: center;
+  text-align: center;
+  font-size: 10px;
+
+  &-empty {
+    background-color: #cdc1b5;
+  }
 
   --light-text-color: #fdf2e7;
   --dark-text-color: #756f68;
@@ -68,55 +75,68 @@
   &-2 {
     background-color: #eee4da;
     color: var(--dark-text-color);
+    font-size: 35px;
   }
 
   &-4 {
     background-color: #ece0c8;
     color: var(--dark-text-color);
+    font-size: 35px;
   }
 
   &-8 {
     background-color: #f2b179;
+    font-size: 35px;
   }
 
   &-16 {
     background-color: #f59563;
+    font-size: 35px;
   }
 
   &-32 {
     background-color: #f57c5f;
+    font-size: 35px;
   }
 
   &-64 {
     background-color: #f65f3c;
+    font-size: 35px;
   }
 
   &-128 {
     background-color: #ecce70;
+    font-size: 25px;
   }
 
   &-256 {
     background-color: #eccb61;
+    font-size: 25px;
   }
 
   &-512 {
     background-color: #ebc74f;
+    font-size: 25px;
   }
 
   &-1024 {
     background-color: #ecc441;
+    font-size: 15px;
   }
 
   &-2048 {
     background-color: #ecc12d;
+    font-size: 15px;
   }
 
   &-4096 {
     background-color: #ef666d;
+    font-size: 15px;
   }
 
   &-8192 {
     background-color: #ec4d58;
+    font-size: 15px;
   }
 
   &-16384 {

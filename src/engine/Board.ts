@@ -1,5 +1,5 @@
 /* eslint-disable no-continue */
-import { Direction, FieldValue } from '@/types';
+import { Direction, FieldValue, Positions } from '@/types';
 import { generate2dFields } from '@/utils';
 
 export class Board {
@@ -29,7 +29,7 @@ export class Board {
     return this.#positions;
   }
 
-  setState(positions: ReadonlyArray<ReadonlyArray<FieldValue>>, score: number) {
+  setState({ positions, score }: { positions: Positions; score: number }) {
     this.#positions = positions.map((row) => [...row]);
     this.#score = score;
   }
@@ -202,7 +202,7 @@ export class Board {
 
   copy(): Board {
     const board = new Board(this.columns, this.rows);
-    board.setState(this.#positions, this.score);
+    board.setState({ positions: this.#positions, score: this.score });
     return board;
   }
 }

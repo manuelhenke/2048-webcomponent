@@ -3,7 +3,7 @@ import { html, unsafeCSS, LitElement } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 import { Engine } from '@/engine';
 import { GameWonEvent, GameLostEvent, MoveEvent, ScoreEvent } from '@/events';
-import { Direction, GameModeConfiguration } from '@/types';
+import { Direction, GameModeConfiguration, Positions } from '@/types';
 import Style from './style.scss';
 
 /**
@@ -195,8 +195,8 @@ export class Game extends LitElement {
     this.requestUpdate();
   }
 
-  private createGameBoard() {
-    this.engine.createBoard(this.columns, this.rows);
+  private createGameBoard(boardState?: { positions: Positions; score: number }) {
+    this.engine.createBoard(this.columns, this.rows, boardState);
     this.dispatchEvent(
       new ScoreEvent(this.engine.positions, {
         newScore: this.engine.score,
@@ -216,7 +216,7 @@ export class Game extends LitElement {
   setGameModeConfiguration(gameModeConfiguration: GameModeConfiguration) {
     this.columns = gameModeConfiguration.columns;
     this.rows = gameModeConfiguration.rows;
-    this.createGameBoard();
+    this.createGameBoard(gameModeConfiguration.state);
   }
 
   restartGame() {
@@ -251,7 +251,9 @@ export class Game extends LitElement {
             (row) =>
               html`
                 <div class="row">
-                  ${row.map((field) => html`<div class="field field-${field}">${field}</div>`)}
+                  ${row.map(
+                    (field) => html`<div class="field field-${field || 'empty'}">${field}</div>`
+                  )}
                 </div>
               `
           )}

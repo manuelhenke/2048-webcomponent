@@ -11,4 +11,5 @@ export type Positions = ReadonlyArray<ReadonlyArray<FieldValue>>;
 export interface GameModeConfiguration {
   columns: number;
   rows: number;
+  state?: { positions: Positions; score: number };
 }

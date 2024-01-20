@@ -1,4 +1,4 @@
-import { Direction, GameModeConfiguration } from '@/types';
+import { Direction, GameModeConfiguration, Positions } from '@/types';
 import { deepCopy } from '@/utils';
 import { Board } from './Board';
 
@@ -28,13 +28,24 @@ export class Engine {
     return this.#board.score;
   }
 
-  createBoard(columns: number, rows: number) {
+  createBoard(
+    columns: number,
+    rows: number,
+    state?: {
+      positions: Positions;
+      score: number;
+    }
+  ) {
     this.gameModeConfiguration = {
       columns,
       rows,
     };
 
     this.restart();
+
+    if (state) {
+      this.#board.setState(state);
+    }
   }
 
   restart() {
