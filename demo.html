@@ -26,6 +26,7 @@
       <option value="normal" selected>Normal - 4x4</option>
       <option value="hard">Hard - 3x3</option>
     </select>
+    <div><strong>Score:</strong> <span id="score">0</span></div>
     <game-2048 id="game-2048" restart-selector="#restart-game-button"></game-2048>
     <div>
       <button id="restart-game-button">Restart!</button>
@@ -71,6 +72,7 @@
       window.addEventListener('DOMContentLoaded', () => {
         /** @type {Game} **/
         const game = document.querySelector('#game-2048');
+        const scoreContainer = document.querySelector('#score');
 
         game.addEventListener('2048:game-won', (event) => {
           console.log('game-won', event);
@@ -86,6 +88,11 @@
 
         game.addEventListener('2048:move', (event) => {
           console.log('move', event);
+        });
+
+        game.addEventListener('2048:score', (event) => {
+          console.log('score', event.detail);
+          scoreContainer.textContent = event.detail.newScore;
         });
 
         document

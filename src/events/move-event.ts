@@ -1,5 +1,4 @@
-import { Board } from '@/engine';
-import { Direction } from '@/types';
+import { Positions, Direction } from '@/types';
 import { Event } from './event';
 
 interface MoveEventDetail {
@@ -7,12 +6,10 @@ interface MoveEventDetail {
 }
 
 export class MoveEvent extends Event<MoveEventDetail> {
-  constructor(board: Board, direction: Direction) {
-    super('move', board, {
+  constructor(positions: Positions, detail: MoveEventDetail) {
+    super('move', positions, {
       cancelable: true,
-      detail: {
-        direction,
-      },
+      detail,
     });
   }
 }

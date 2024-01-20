@@ -5,6 +5,9 @@ export enum Direction {
   Right = 'RIGHT',
 }
 
+export type FieldValue = number | undefined;
+export type Positions = ReadonlyArray<ReadonlyArray<FieldValue>>;
+
 export interface GameModeConfiguration {
   columns: number;
   rows: number;

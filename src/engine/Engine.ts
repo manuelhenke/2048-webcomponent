@@ -20,8 +20,12 @@ export class Engine {
     this.onLoseCallback = onLoseCallback;
   }
 
-  get board() {
-    return this.#board;
+  get positions() {
+    return this.#board.positions;
+  }
+
+  get score() {
+    return this.#board.score;
   }
 
   createBoard(columns: number, rows: number) {

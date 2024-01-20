@@ -1,12 +1,13 @@
 /* eslint-disable no-continue */
-import { Direction } from '@/types';
-
-export type FieldValue = number | undefined;
+import { Direction, FieldValue } from '@/types';
+import { generate2dFields } from '@/utils';
 
 export class Board {
   private columns: number;
 
   private rows: number;
+
+  #score = 0;
 
   #positions: FieldValue[][];
 
@@ -20,17 +21,22 @@ export class Board {
     this.spawnNewField();
   }
 
+  get score(): number {
+    return this.#score;
+  }
+
   get positions(): ReadonlyArray<ReadonlyArray<FieldValue>> {
     return this.#positions;
   }
 
+  setState(positions: ReadonlyArray<ReadonlyArray<FieldValue>>, score: number) {
+    this.#positions = positions.map((row) => [...row]);
+    this.#score = score;
+  }
+
   private generate2dFields(): FieldValue[][] {
-    return (
-      Array.from<FieldValue[]>({ length: this.rows })
-        .fill([undefined])
-        // eslint-disable-next-line unicorn/no-useless-undefined
-        .map(() => Array.from<FieldValue>({ length: this.columns }).fill(undefined))
-    );
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    return generate2dFields<FieldValue>(this.rows, this.columns, undefined);
   }
 
   move(direction: Direction): void {
@@ -57,7 +63,6 @@ export class Board {
     }
   }
 
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   private moveUp(): void {
     const newPositions = this.generate2dFields();
 
@@ -71,6 +76,7 @@ export class Board {
           if (newPositionsValue === this.#positions[row][column]) {
             // combine fields if they are the same
             newPositions[newRow][column] = newPositionsValue * 2;
+            this.#score += newPositionsValue * 2;
           } else {
             // move field to the next row if it is not the same
             newPositions[newRow + 1][column] = this.#positions[row][column];
@@ -100,6 +106,7 @@ export class Board {
           if (newPositionsValue === this.#positions[row][column]) {
             // combine fields if they are the same
             newPositions[newRow][column] = newPositionsValue * 2;
+            this.#score += newPositionsValue * 2;
           } else {
             // move field to the next row if it is not the same
             newPositions[newRow - 1][column] = this.#positions[row][column];
@@ -129,6 +136,7 @@ export class Board {
           if (newPositionsValue === this.#positions[row][column]) {
             // combine fields if they are the same
             newPositions[row][newColumn] = newPositionsValue * 2;
+            this.#score += newPositionsValue * 2;
           } else {
             // move field to the next column if it is not the same
             newPositions[row][newColumn - 1] = this.#positions[row][column];
@@ -158,6 +166,7 @@ export class Board {
           if (newPositionsValue === this.#positions[row][column]) {
             // combine fields if they are the same
             newPositions[row][newColumn] = newPositionsValue * 2;
+            this.#score += newPositionsValue * 2;
           } else {
             // move field to the next column if it is not the same
             newPositions[row][newColumn + 1] = this.#positions[row][column];
@@ -193,7 +202,7 @@ export class Board {
 
   copy(): Board {
     const board = new Board(this.columns, this.rows);
-    board.#positions = this.#positions.map((row) => [...row]);
+    board.setState(this.#positions, this.score);
     return board;
   }
 }

@@ -2,7 +2,7 @@
 import { html, unsafeCSS, LitElement } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 import { Engine } from '@/engine';
-import { GameWonEvent, GameLostEvent, MoveEvent } from '@/events';
+import { GameWonEvent, GameLostEvent, MoveEvent, ScoreEvent } from '@/events';
 import { Direction, GameModeConfiguration } from '@/types';
 import Style from './style.scss';
 
@@ -10,6 +10,7 @@ import Style from './style.scss';
  * @fires {GameWonEvent} 2048:game-won - User just won the game
  * @fires {GameLostEvent} 2048:game-lost - User just lost the game
  * @fires {MoveEvent} 2048:move - User moved
+ * @fires {ScoreEvent} 2048:score - Score has been updated
  */
 export class Game extends LitElement {
   static get styles() {
@@ -78,9 +79,9 @@ export class Game extends LitElement {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
-    if (event.repeat) {
-      return;
-    }
+    // if (event.repeat) {
+    //   return;
+    // }
 
     switch (event.key) {
       case 'ArrowUp': {
@@ -172,29 +173,44 @@ export class Game extends LitElement {
   private move(direction: Direction) {
     this.resetMoveStart();
     if (!this.engine.isMoveValid(direction)) return;
-    const allowed = this.dispatchEvent(new MoveEvent(this.engine.board, direction));
+    const allowed = this.dispatchEvent(new MoveEvent(this.engine.positions, { direction }));
 
     if (!allowed) {
       return;
     }
 
+    const oldScore = this.engine.score;
     this.engine.move(direction);
+    const newScore = this.engine.score;
+    const delta = newScore - oldScore;
+    if (delta > 0) {
+      this.dispatchEvent(
+        new ScoreEvent(this.engine.positions, {
+          oldScore,
+          delta,
+          newScore,
+        })
+      );
+    }
     this.requestUpdate();
   }
 
   private createGameBoard() {
-    if (this.engine) {
-      this.engine.createBoard(this.columns, this.rows);
-      this.requestUpdate();
-    }
+    this.engine.createBoard(this.columns, this.rows);
+    this.dispatchEvent(
+      new ScoreEvent(this.engine.positions, {
+        newScore: this.engine.score,
+      })
+    );
+    this.requestUpdate();
   }
 
   private gameWonCallback() {
-    this.dispatchEvent(new GameWonEvent(this.engine.board));
+    this.dispatchEvent(new GameWonEvent(this.engine.positions));
   }
 
   private gameLostCallback() {
-    this.dispatchEvent(new GameLostEvent(this.engine.board));
+    this.dispatchEvent(new GameLostEvent(this.engine.positions));
   }
 
   setGameModeConfiguration(gameModeConfiguration: GameModeConfiguration) {
@@ -204,18 +220,21 @@ export class Game extends LitElement {
   }
 
   restartGame() {
-    if (this.engine) {
-      this.engine.restart();
-      this.requestUpdate();
-    }
+    this.engine.restart();
+    this.dispatchEvent(
+      new ScoreEvent(this.engine.positions, {
+        newScore: this.engine.score,
+      })
+    );
+    this.requestUpdate();
   }
 
   render() {
-    if (!this.engine?.board) {
-      return html`No Board :(`;
+    if (!this.engine.positions) {
+      return html`No Board State :(`;
     }
 
-    const { positions } = this.engine.board;
+    const { positions } = this.engine;
 
     return html`
       <div
@@ -247,6 +266,7 @@ declare global {
     '2048:game-won': GameWonEvent;
     '2048:game-lost': GameLostEvent;
     '2048:move': MoveEvent;
+    '2048:score': ScoreEvent;
   }
 }
 

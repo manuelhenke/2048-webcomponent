@@ -34,9 +34,10 @@ yarn add 2048-webcomponent
 By default, each event contains the current game state in `event.detail.game`. To discourage cheating, no events should be logged in the browser console.
 | Name | Type | Cancelable | Description | `detail` |
 | ---------------- | --------------- | ------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `2048:game-won` | `GameWonEvent` | :x: | User just won the game | <ul><li>`board`: `Board` current game state</li></ul> |
-| `2048:game-lost` | `GameLostEvent` | :x: | User just lost the game | <ul><li>`board`: `Board` current game state</li></ul> |
-| `2048:move` | `MoveEvent` | :white_check_mark: | User made a move | <ul><li>`board`: `Board` current game state</li><li>`direction`: `Direction` direction of the move</li></ul> |
+| `2048:game-won` | `GameWonEvent` | :x: | User just won the game | <ul><li>`positions`: `Positions` current game state</li></ul> |
+| `2048:game-lost` | `GameLostEvent` | :x: | User just lost the game | <ul><li>`positions`: `Positions` current game state</li></ul> |
+| `2048:move` | `MoveEvent` | :white_check_mark: | User made a move | <ul><li>`positions`: `Positions` current game state</li><li>`direction`: `Direction` direction of the move</li></ul> |
+| `2048:score` | `ScoreEvent` | :x: | Score has been updated | <ul><li>`positions`: `Positions` current game state</li><li>`oldScore`: `number \| undefined` old score</li><li>`delta`: `number \| undefined` difference between old and new score</li><li>`newScore`: `number` current score</li></ul> |
 
 ## Usage
 

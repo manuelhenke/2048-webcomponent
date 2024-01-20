@@ -27,3 +27,9 @@ export function deepCopy<T>(object: T): T {
 
   return object;
 }
+
+export function generate2dFields<T>(rows: number, columns: number, fillValue: T): T[][] {
+  return Array.from<T[]>({ length: rows })
+    .fill([fillValue])
+    .map(() => Array.from<T>({ length: columns }).fill(fillValue));
+}

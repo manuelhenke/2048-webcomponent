@@ -1,8 +1,8 @@
-import { Board } from '@/engine';
+import { Positions } from '@/types';
 import { Event } from './event';
 
 export class GameWonEvent extends Event {
-  constructor(board: Board) {
-    super('game-won', board);
+  constructor(positions: Positions) {
+    super('game-won', positions);
   }
 }

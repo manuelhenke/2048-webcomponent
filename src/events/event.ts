@@ -1,17 +1,17 @@
-import { Board } from '@/engine';
+import { Positions } from '@/types';
 import { deepCopy } from '@/utils';
 
 interface EventDetail {
-  board: Board;
+  positions: Positions;
 }
 
 export class Event<T = void> extends CustomEvent<T & EventDetail> {
-  constructor(type: string, board: Board, eventInitDict: CustomEventInit<T> = {}) {
+  constructor(type: string, positions: Positions, eventInitDict: CustomEventInit<T> = {}) {
     const { detail, ...eventInitDictWithoutDetail } = eventInitDict;
 
     super(`2048:${type}`, {
       detail: {
-        board: deepCopy(board),
+        positions: deepCopy(positions),
         ...detail,
       } as T & EventDetail,
       bubbles: true,
